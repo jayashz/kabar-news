@@ -3,8 +3,7 @@ import React, { useState } from 'react'
 import BoardingScreen from './BoardingScreen';
 
 const OnBoard = () => {
-    const [selectedIndex,setSelectedIndex] = useState(0);
-
+    const [selectedIndex,setSelectedIndex] = useState(1);
 
   return (
     <View className='flex-1'>
