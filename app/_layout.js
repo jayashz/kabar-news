@@ -8,6 +8,7 @@ const _layout = () => {
     <Stack screenOptions={{headerShown:false}}>
         <Stack.Screen name='index'/>
         <Stack.Screen name='BoardingScreen'/>
+        <Stack.Screen name='(auth)'/>
     </Stack>
   )
 }

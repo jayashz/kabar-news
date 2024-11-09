@@ -8,10 +8,12 @@ import {
   FlatList,
   Dimensions,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 import CustBtn from "../components/ui/CustBtn";
+import { Colors } from "../constants/Colors";
 
+const deviceWidth = Dimensions.get("window").width;
 const BoardingData = [
   {
     id: 1,
@@ -33,14 +35,10 @@ const BoardingData = [
   },
 ];
 
-function BoardContent() {
-  const deviceWidth = Dimensions.get("window").width;
+function BoardContent({ data }) {
   return (
     <View>
-      <Image
-        source={require("../assets/BoardingScreenImages/News Images.png")}
-        style={{width:deviceWidth}}
-      />
+      <Image source={data.image} style={{ width: deviceWidth }} />
       <View className="w-[300px] ml-4 mt-4">
         <Text className="text-2xl font-bold">Lorem ipsum is simply dummy</Text>
         <Text className="text-lg text-gray-500">
@@ -53,13 +51,34 @@ function BoardContent() {
 }
 
 const BoardingScreen = ({ selectedIndex, total, onIndexChnage }) => {
-  
+  const ref = useRef(null);
+  console.log(selectedIndex);
+  function scrollUpdate(event) {
+    const contentOffSetx = event.nativeEvent.contentOffset.x;
+    const currIndex = Math.round(contentOffSetx / deviceWidth);
+    onIndexChnage(currIndex);
+  }
+  function goToNextSlide() {
+    onIndexChnage(selectedIndex + 1);
+    const offset = (selectedIndex + 1) * deviceWidth;
+    ref?.current.scrollToOffset({ offset });
+  }
+  function goToPreviousSlide() {
+    if (selectedIndex < 1) {
+      return;
+    }
+    onIndexChnage(selectedIndex - 1);
+    const offset = (selectedIndex - 1) * deviceWidth;
+    ref?.current.scrollToOffset({ offset });
+  }
   return (
     <View className="flex-1">
       <View>
         <FlatList
-          keyExtractor={(item)=>item.id}
+          keyExtractor={(item) => item.id}
           data={BoardingData}
+          ref={ref}
+          onMomentumScrollEnd={scrollUpdate}
           horizontal
           showsHorizontalScrollIndicator={false}
           pagingEnabled
@@ -69,27 +88,27 @@ const BoardingScreen = ({ selectedIndex, total, onIndexChnage }) => {
         />
       </View>
 
-      <View className='flex-row items-center justify-between px-4 mt-8'>
-        <View className='flex-row items-center gap-1'>
-          <View className='w-4 h-4 rounded-full bg-slate-500'/>
-          <View className='w-4 h-4 rounded-full bg-slate-500'/>
-          <View className='w-4 h-4 rounded-full bg-slate-500'/>
+      <View className="flex-row items-center justify-between px-4 mt-8">
+        <View className="flex-row items-center gap-1">
+          {BoardingData.map((_, index) => (
+            <View
+              className="w-4 h-4 rounded-full bg-slate-500"
+              style={
+                index == selectedIndex
+                  ? { backgroundColor: Colors.primaryBlue }
+                  : null
+              }
+            />
+          ))}
         </View>
         <View className="flex-row items-center gap-[10px]">
-          {selectedIndex > 1 && (
-            <Pressable
-              onPress={() => {
-                if (selectedIndex < 1) {
-                  return;
-                }
-                onIndexChnage(selectedIndex - 1);
-              }}
-            >
+          {selectedIndex > 0 && (
+            <Pressable onPress={goToPreviousSlide}>
               <Text className="text-lg text-gray-500 font-semibold">Back</Text>
             </Pressable>
           )}
-          <CustBtn onPress={() => onIndexChnage(selectedIndex + 1)}>
-            {selectedIndex == total ? "Get Started" : "Next"}
+          <CustBtn onPress={goToNextSlide}>
+            {selectedIndex == total - 1 ? "Get Started" : "Next"}
           </CustBtn>
         </View>
       </View>
