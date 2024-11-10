@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native';
+
 import '../global.css';
 import React from 'react'
 import { Stack, Tabs } from 'expo-router'

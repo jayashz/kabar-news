@@ -8,7 +8,7 @@ const Login = () => {
   const navigation = useNavigation();
   return (
     <SafeAreaView className="flex-1">
-      <View className="flex-1 p-5">
+      <View className="flex-1 p-6">
         <View>
           <Text className="text-[48px] font-bold">Hello</Text>
           <Text

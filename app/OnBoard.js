@@ -13,7 +13,7 @@ const OnBoard = () => {
       )
    } 
    else{
-    navigation.push('(auth)')
+    navigation.navigate('(auth)')
    }
   
 }

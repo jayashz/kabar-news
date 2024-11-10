@@ -7,6 +7,8 @@ const _layout = () => {
     <Stack screenOptions={{headerShown:false}}>
       <Stack.Screen name="Login" />
       <Stack.Screen name="Signup" />
+      <Stack.Screen name="Forgot"/>
+      <Stack.Screen name="(verify)"/>
     </Stack>
   );
 };
