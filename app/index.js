@@ -1,17 +1,21 @@
 import { View, Text, Button } from 'react-native'
-import React from 'react'
-import { useNavigation } from 'expo-router'
-
-const Welcome = () => {
-  const navigation = useNavigation();
-
-  return (
-
-    <View style={{flex:1,justifyContent:"center", alignItems:'center'}}>
-      <Button title="Click to continue" onPress={()=>navigation.navigate('OnBoard')}></Button>
-    </View>
-
-  )
+import React, { useState } from 'react'
+import BoardingScreen from './BoardingScreen';
+import { useNavigation } from 'expo-router';
+const OnBoard = () => {
+    const navigation = useNavigation();
+    const [selectedIndex,setSelectedIndex] = useState(0);
+   if(selectedIndex<3){
+    return (
+        <View className='flex-1'>
+          <BoardingScreen selectedIndex={selectedIndex} total={3} onIndexChnage={(i)=>setSelectedIndex(i)}/>
+        </View>
+      )
+   } 
+   else{
+    navigation.navigate('(auth)')
+   }
+  
 }
 
-export default Welcome;
+export default OnBoard

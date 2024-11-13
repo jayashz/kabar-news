@@ -2,8 +2,11 @@ import { View, Text, SafeAreaView, Image } from "react-native";
 import React from "react";
 import { Colors } from "../../../constants/Colors";
 import CustBtn from "../../../components/ui/CustBtn";
+import { useNavigation,router } from "expo-router";
 
 const Sucess = () => {
+  const navigation = useNavigation();
+
   return (
     <SafeAreaView className="flex-1">
       <View className="flex-1 p-6 justify-center items-center">
@@ -21,7 +24,7 @@ const Sucess = () => {
         </View>
       </View>
       <View className='p-6'>
-        <CustBtn>Go To Homepage</CustBtn>
+        <CustBtn onPress={()=> router.replace('/(Public)')}>Go To Homepage</CustBtn>
       </View>
     </SafeAreaView>
   );

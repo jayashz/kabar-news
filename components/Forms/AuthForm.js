@@ -15,6 +15,10 @@ const AuthForm = () => {
 
   const isLogin = route.key.includes("Login");
 
+  function loginHandler(){
+    navigation.navigate('(Public)');
+  }
+
   return (
     <View className="w-full">
       <Text className="text-sm">Username*</Text>
@@ -37,7 +41,7 @@ const AuthForm = () => {
         </Pressable>
       </View>
       <View className="w-full mt-4">
-        <CustBtn>{isLogin ? "Login" : "Signup"}</CustBtn>
+        <CustBtn onPress={loginHandler}>{isLogin ? "Login" : "Signup"}</CustBtn>
       </View>
       <Text className="text-center my-[16px] text-gray-600">
         or continue with
