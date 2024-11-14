@@ -5,6 +5,7 @@ import { useNavigation } from 'expo-router';
 const OnBoard = () => {
     const navigation = useNavigation();
     const [selectedIndex,setSelectedIndex] = useState(0);
+    
    if(selectedIndex<3){
     return (
         <View className='flex-1'>

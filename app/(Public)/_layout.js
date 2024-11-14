@@ -1,5 +1,5 @@
 import React from "react";
-import { Stack, Tabs } from "expo-router";
+import { Tabs } from "expo-router";
 import Foundation from "@expo/vector-icons/Foundation";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import FontAwesome from "@expo/vector-icons/FontAwesome";

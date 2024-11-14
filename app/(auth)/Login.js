@@ -4,6 +4,7 @@ import { useNavigation } from "expo-router";
 import { Colors } from "../../constants/Colors";
 import AuthForm from "../../components/Forms/AuthForm";
 import { loginUser } from "../../utils/auth";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Login = () => {
   const navigation = useNavigation();
@@ -11,6 +12,8 @@ const Login = () => {
     try{
       const token = await loginUser({email,password});
       console.log(token);
+      await AsyncStorage.setItem('token',token);
+      navigation.navigate('(Public)');
     }
     catch(error){
       console.log("Error while logging in:", error);

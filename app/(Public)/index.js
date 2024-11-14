@@ -4,7 +4,7 @@ import HomePageTop from "../../components/ui/HomePageTop";
 import SearchBar from "../../components/ui/SearchBar";
 import TopicCard from "../../components/Cards/TopicCard";
 import { Colors } from "../../constants/Colors";
-import { Platform } from "react-native";
+
 import CustomWrapper from "../../components/Cards/CustomWrapper";
 
 const Homepage = () => {

@@ -2,9 +2,11 @@ import "../global.css";
 import React from "react";
 import { Stack, Redirect } from "expo-router";
 import { useState, useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 const AuthLayout = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -15,13 +17,12 @@ const AuthLayout = () => {
   const checkAuthStatus = async () => {
     try {
       // Add your auth check logic here
-      // const token = await AsyncStorage.getItem('userToken');
-      // setIsLoggedIn(!!token);
-      setIsLoading(false);
+      const token = await AsyncStorage.getItem("token");
+      setIsLoggedIn(!!token);
     } catch (error) {
-      console.error('Auth check failed:', error);
-      setIsLoading(false);
+      console.error("Auth check failed:", error);
     }
+      setIsLoading(false);
   };
 
   if (isLoading) {
@@ -32,38 +33,37 @@ const AuthLayout = () => {
     <>
       {/* Redirect to Public route when logged in */}
       {isLoggedIn && <Redirect href="/(Public)" />}
-      
-      <Stack 
-        screenOptions={{ 
-          headerShown: false 
+
+      <Stack
+        screenOptions={{
+          headerShown: false,
         }}
-        // Set initial route to Public
-        initialRouteName="(Public)"
       >
-        <Stack.Screen 
-          name="index" 
+        <Stack.Screen
+          name="index"
           options={{
-            gestureEnabled: false
+            gestureEnabled: false,
           }}
         />
-        <Stack.Screen 
+        <Stack.Screen
           name="BoardingScreen"
           options={{
-            gestureEnabled: false
+            gestureEnabled: false,
           }}
         />
-        <Stack.Screen 
+        <Stack.Screen
           name="(auth)"
           options={{
-            gestureEnabled: false
+            gestureEnabled: false,
           }}
         />
-        <Stack.Screen 
+        <Stack.Screen
           name="(Public)"
           options={{
-            gestureEnabled: false
+            gestureEnabled: false,
           }}
         />
+        
       </Stack>
     </>
   );

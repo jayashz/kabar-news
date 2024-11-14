@@ -3,12 +3,14 @@ import React from "react";
 import { Colors } from "../../constants/Colors";
 import AuthForm from "../../components/Forms/AuthForm";
 import { signupUser } from "../../utils/auth";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Signup = () => {
   async function signupHandler({email,password}){
     try{
       const token = await signupUser({email,password});
-      console.log(token);
+      await AsyncStorage.setItem('token',token);
+      navigation.navigate('(Public)');
     }
     catch(error){
       console.log("Error while signUp: ",error);

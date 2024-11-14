@@ -1,7 +1,7 @@
 import { Pressable, View, Text, Image } from "react-native";
 import React from "react";
 import { Colors } from "../../constants/Colors";
-import Entypo from '@expo/vector-icons/Entypo';
+
 import RecentCard from "./RecentCard";
 
 const TopicCard = () => {
