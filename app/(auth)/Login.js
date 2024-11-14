@@ -3,9 +3,19 @@ import React from "react";
 import { useNavigation } from "expo-router";
 import { Colors } from "../../constants/Colors";
 import AuthForm from "../../components/Forms/AuthForm";
+import { loginUser } from "../../utils/auth";
 
 const Login = () => {
   const navigation = useNavigation();
+  async function LoginHandler({email,password}){
+    try{
+      const token = await loginUser({email,password});
+      console.log(token);
+    }
+    catch(error){
+      console.log("Error while logging in:", error);
+    }
+  }
   return (
     <SafeAreaView className="flex-1">
       <View className="flex-1 p-6">
@@ -22,7 +32,7 @@ const Login = () => {
           </Text>
         </View>
         <View className='mt-[48px] w-full'>
-          <AuthForm />
+          <AuthForm onAuthenticate={LoginHandler} />
         </View>
       </View>
     </SafeAreaView>

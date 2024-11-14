@@ -2,17 +2,19 @@ import { View, Text, SafeAreaView, Pressable, ScrollView } from "react-native";
 import React from "react";
 import HomePageTop from "../../components/ui/HomePageTop";
 import SearchBar from "../../components/ui/SearchBar";
-import TrendingCard from "../../components/TrendingCard";
+import TopicCard from "../../components/Cards/TopicCard";
 import { Colors } from "../../constants/Colors";
+import { Platform } from "react-native";
+import CustomWrapper from "../../components/Cards/CustomWrapper";
 
 const Homepage = () => {
   return (
     <SafeAreaView className="flex-1 ">
-      <View className="flex-1 px-[24px]">
+      <CustomWrapper>
         <HomePageTop />
         <ScrollView>
           <SearchBar />
-          <TrendingCard />
+          <TopicCard />
           <View>
             <View className="flex-row justify-between mt-2">
               <Text className="text-[16px] font-bold"> Latest</Text>
@@ -55,7 +57,7 @@ const Homepage = () => {
             </Pressable>
           </ScrollView>
         </ScrollView>
-      </View>
+      </CustomWrapper>
     </SafeAreaView>
   );
 };

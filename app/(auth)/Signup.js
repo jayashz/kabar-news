@@ -2,8 +2,18 @@ import { View, Text,SafeAreaView } from "react-native";
 import React from "react";
 import { Colors } from "../../constants/Colors";
 import AuthForm from "../../components/Forms/AuthForm";
+import { signupUser } from "../../utils/auth";
 
 const Signup = () => {
+  async function signupHandler({email,password}){
+    try{
+      const token = await signupUser({email,password});
+      console.log(token);
+    }
+    catch(error){
+      console.log("Error while signUp: ",error);
+    }
+  }
   return (
    <SafeAreaView className="flex-1">
       <View className="flex-1 p-6">
@@ -20,7 +30,7 @@ const Signup = () => {
           </Text>
         </View>
         <View className="mt-[48px] w-full">
-          <AuthForm />
+          <AuthForm onAuthenticate={signupHandler} />
         </View>
       </View>
       </SafeAreaView>

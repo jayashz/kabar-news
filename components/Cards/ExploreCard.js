@@ -1,7 +1,7 @@
 import { View, Text,Image } from "react-native";
 import React from "react";
 import { Colors } from "../../constants/Colors";
-import TextButton from "./Buttons/TextButton";
+import TextButton from "../ui/Buttons/TextButton";
 
 const ExploreCard = () => {
   return (
