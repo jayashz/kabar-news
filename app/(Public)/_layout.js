@@ -53,6 +53,22 @@ const PublicLayout = () => {
           tabBarItemStyle: { display: "none" },
         }}
       />
+      <Tabs.Screen
+        name="Search"
+        options={{
+          href: null,
+          tabBarStyle: { display: "none" }, 
+          tabBarItemStyle: { display: "none" },
+        }}
+      />
+      <Tabs.Screen
+        name="Trending"
+        options={{
+          href: null,
+          tabBarStyle: { display: "none" }, 
+          tabBarItemStyle: { display: "none" },
+        }}
+      />
     </Tabs>
   );
 };

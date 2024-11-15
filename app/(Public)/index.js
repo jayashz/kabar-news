@@ -1,20 +1,33 @@
 import { View, Text, SafeAreaView, Pressable, ScrollView } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import HomePageTop from "../../components/ui/HomePageTop";
 import SearchBar from "../../components/ui/SearchBar";
 import TopicCard from "../../components/Cards/TopicCard";
 import { Colors } from "../../constants/Colors";
-
 import CustomWrapper from "../../components/Cards/CustomWrapper";
+import { trendingFetch } from "../../utils/newApi";
 
 const Homepage = () => {
+  const [trendingNews, setTrendingNews] = useState();
+  useEffect(() => {
+    async function fetch() {
+      try {
+        const news = await trendingFetch();
+        setTrendingNews(news);
+      } catch (error) {
+        console.log("error fetching trending: ", error);
+      }
+    }
+    fetch();
+  }, []);
+
   return (
     <SafeAreaView className="flex-1 ">
       <CustomWrapper>
         <HomePageTop />
         <ScrollView>
           <SearchBar />
-          <TopicCard />
+          {trendingNews && <TopicCard news={trendingNews} />}
           <View>
             <View className="flex-row justify-between mt-2">
               <Text className="text-[16px] font-bold"> Latest</Text>

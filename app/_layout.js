@@ -33,7 +33,6 @@ const AuthLayout = () => {
     <>
       {/* Redirect to Public route when logged in */}
       {isLoggedIn && <Redirect href="/(Public)" />}
-
       <Stack
         screenOptions={{
           headerShown: false,
