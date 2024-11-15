@@ -5,38 +5,30 @@ import { Colors } from "../../constants/Colors";
 import RecentCard from "./RecentCard";
 import { router } from "expo-router";
 
+
 const TopicCard = ({news}) => {
-function seeAllHandler(){
-  const serializedNews = JSON.stringify(news);
-  router.push({
-    pathname: '/Trending',
-    params: { serializedNews }
-  })
-}
+  function clickHandler(){
+    const serializedNews = JSON.stringify(news);
+    router.push({pathname:'DetailScreen',params: {serializedNews}});
+  }
+  
   return (
-    <View className="h-[35vh ">
-      <View className="flex-row justify-between">
-        <Text>Trending</Text>
-        <Pressable onPress={seeAllHandler}>
-          <Text>See all</Text>
-        </Pressable>
-      </View>
-      <Pressable>
+    <View>
+      <Pressable onPress={clickHandler}>
         <View className="p-2">
           <Image
-            source={{uri:news[0].urlToImage}}
+            source={{uri:news.urlToImage}}
             className="w-full object-center rounded-[6px] h-[25vh]"
           />
           <Text className="my-2 text-[13px]" style={{ color: Colors.grayText }}>
-            {news[0].author}
+            {news.author}
           </Text>
           <Text className="text-[16px]">
-            {news[0].title}
+            {news.title}
           </Text>
         </View>
-       
       </Pressable>
-      <RecentCard/>
+      <RecentCard source={news.source.name} time={news.publishedAt}  />
     </View>
   );
 };

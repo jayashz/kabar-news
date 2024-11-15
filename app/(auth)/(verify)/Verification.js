@@ -12,7 +12,7 @@ const Verification = () => {
     <SafeAreaView className="flex-1">
       <View className="flex-1 p-6">
         <View>
-          <BackBtn onPress={() => navigation.goBack()} />
+          <BackBtn />
         </View>
         <View className="justify-center items-center my-[27px] gap-2">
           <Text className="text-[32px] font-bold">OTP Verification</Text>

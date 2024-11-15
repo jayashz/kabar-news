@@ -12,7 +12,7 @@ const Forgot = () => {
     <SafeAreaView className="flex-1">
       <View className="flex-1 p-6 ">
         <View>
-          <BackBtn onPress={() => navigation.goBack()} />
+          <BackBtn/>
         </View>
         <View>
           <Text

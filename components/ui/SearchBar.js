@@ -17,7 +17,7 @@ const SearchBar = () => {
           params: { searchData: serializedData }
         });
       }
-    }, 500); // Wait 500ms after the user stops typing
+    }, 200); // Wait 500ms after the user stops typing
 
     return () => clearTimeout(timeoutId);
   }, [query]);

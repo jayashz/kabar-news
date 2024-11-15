@@ -52,7 +52,7 @@ function BoardContent({ data }) {
 
 const BoardingScreen = ({ selectedIndex, total, onIndexChnage }) => {
   const ref = useRef(null);
-  console.log(selectedIndex);
+
   function scrollUpdate(event) {
     const contentOffSetx = event.nativeEvent.contentOffset.x;
     const currIndex = Math.round(contentOffSetx / deviceWidth);

@@ -6,6 +6,7 @@ import TopicCard from "../../components/Cards/TopicCard";
 import { Colors } from "../../constants/Colors";
 import CustomWrapper from "../../components/Cards/CustomWrapper";
 import { trendingFetch } from "../../utils/newApi";
+import { router } from "expo-router";
 
 const Homepage = () => {
   const [trendingNews, setTrendingNews] = useState();
@@ -21,13 +22,26 @@ const Homepage = () => {
     fetch();
   }, []);
 
+  function seeAllHandler() {
+    const serializedNews = JSON.stringify(trendingNews);
+    router.push({
+      pathname: "/Trending",
+      params: { serializedNews },
+    });
+  }
   return (
     <SafeAreaView className="flex-1 ">
       <CustomWrapper>
         <HomePageTop />
         <ScrollView>
           <SearchBar />
-          {trendingNews && <TopicCard news={trendingNews} />}
+          <View className="flex-row justify-between">
+            <Text>Trending</Text>
+            <Pressable onPress={seeAllHandler}>
+              <Text>See all</Text>
+            </Pressable>
+          </View>
+          {trendingNews && <TopicCard news={trendingNews[0]} />}
           <View>
             <View className="flex-row justify-between mt-2">
               <Text className="text-[16px] font-bold"> Latest</Text>

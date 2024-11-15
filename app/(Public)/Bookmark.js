@@ -15,9 +15,7 @@ const Bookmark = () => {
           <SearchBar/>
         </View>
         <ScrollView contentContainerStyle={{gap:16}}>
-          <NewsCard/>
-          <NewsCard/>
-          <NewsCard/>
+          
         </ScrollView>
       </CustomWrapper>
     </SafeAreaView>

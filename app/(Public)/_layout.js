@@ -55,6 +55,16 @@ const PublicLayout = () => {
       />
       <Tabs.Screen
         name="Search"
+        
+        options={{
+          href: null,
+          tabBarStyle: { display: "none" }, 
+          tabBarItemStyle: { display: "none" },
+          
+        }}
+      />
+      <Tabs.Screen
+        name="Trending"
         options={{
           href: null,
           tabBarStyle: { display: "none" }, 
@@ -62,7 +72,7 @@ const PublicLayout = () => {
         }}
       />
       <Tabs.Screen
-        name="Trending"
+        name="DetailScreen"
         options={{
           href: null,
           tabBarStyle: { display: "none" }, 
