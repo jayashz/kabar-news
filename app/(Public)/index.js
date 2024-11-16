@@ -1,20 +1,26 @@
-import { View, Text, SafeAreaView, Pressable, ScrollView } from "react-native";
+import { View, Text, SafeAreaView, Pressable, ScrollView, FlatList } from "react-native";
 import React, { useEffect, useState } from "react";
 import HomePageTop from "../../components/ui/HomePageTop";
 import SearchBar from "../../components/ui/SearchBar";
 import TopicCard from "../../components/Cards/TopicCard";
 import { Colors } from "../../constants/Colors";
 import CustomWrapper from "../../components/Cards/CustomWrapper";
-import { trendingFetch } from "../../utils/newApi";
+import { search, trendingFetch } from "../../utils/newApi";
 import { router } from "expo-router";
+import { filters } from "../../constants/filterBtnLists";
+import FilterBtn from "../../components/ui/FilterBtn";
+import NewsCard from "../../components/Cards/NewsCard";
 
 const Homepage = () => {
+  const [activeFilter,setActiveFilter] = useState('All');
   const [trendingNews, setTrendingNews] = useState();
+  const [filteredNews,setFilteredNews] = useState();
   useEffect(() => {
     async function fetch() {
       try {
         const news = await trendingFetch();
         setTrendingNews(news);
+        setFilteredNews(news);
       } catch (error) {
         console.log("error fetching trending: ", error);
       }
@@ -29,6 +35,12 @@ const Homepage = () => {
       params: { serializedNews },
     });
   }
+  async function filterHandler(query) {
+    setActiveFilter(query);
+    const news = await search(query);
+    setFilteredNews(news);
+  }
+
   return (
     <SafeAreaView className="flex-1 ">
       <CustomWrapper>
@@ -61,28 +73,15 @@ const Homepage = () => {
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{ gap: 10 }}
           >
-            <Pressable>
-              <Text className="text-[16px]">All</Text>
-            </Pressable>
-            <Pressable>
-              <Text className="text-[16px]">Sports</Text>
-            </Pressable>
-            <Pressable>
-              <Text className="text-[16px]">Political</Text>
-            </Pressable>
-            <Pressable>
-              <Text className="text-[16px]">Business</Text>
-            </Pressable>
-            <Pressable>
-              <Text className="text-[16px]">Health</Text>
-            </Pressable>
-            <Pressable>
-              <Text className="text-[16px]">Travel</Text>
-            </Pressable>
-            <Pressable>
-              <Text className="text-[16px]">Science</Text>
-            </Pressable>
+            {filters.map((item)=><FilterBtn name={item} onPress={filterHandler} isActive={activeFilter==item} />)}
           </ScrollView>
+            <FlatList
+            data={filteredNews}
+            scrollEnabled={false}
+            nestedScrollEnabled={true}
+            keyExtractor={(item)=> item.id}
+            renderItem={(item)=><NewsCard data={item.item}/>}
+            />
         </ScrollView>
       </CustomWrapper>
     </SafeAreaView>
