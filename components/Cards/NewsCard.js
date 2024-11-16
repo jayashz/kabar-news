@@ -13,16 +13,16 @@ const NewsCard = ({ data }) => {
   }
   return (
     <Pressable onPress={clickHandler}>
-      <View className="flex-row">
+      <View className="flex-row gap-1">
         <Image
           source={{ uri: data.urlToImage }}
           className="w-[96px] h-[96px] object-center rounded-[6px] self-center"
         />
         <View className="flex-1 justify-between ">
           <Text className="text-[13px]" style={{ color: Colors.grayText }}>
-            {data.author}
+            {data.author&&data.author.slice(0,40)}
           </Text>
-          <Text className="text-[16px] leading-[24px] ">{data.title}</Text>
+          <Text className="text-[16px] leading-[24px] ">{data.title.slice(0,64)+'...'}</Text>
           <RecentCard source={data.source.name} time={data.publishedAt} />
         </View>
       </View>

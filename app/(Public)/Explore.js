@@ -15,13 +15,16 @@ import TopicCard from "../../components/Cards/TopicCard";
 import CustomWrapper from "../../components/Cards/CustomWrapper";
 import { exporeFetch } from "../../utils/newApi";
 import NewsCard from "../../components/Cards/NewsCard";
+import TopicCardSkeleton from "../../components/Cards/TopicCardSkeleton";
 
 const Explore = () => {
   const [news,setNews]= useState();
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(()=>{
     async function fetch(){
       const data = await exporeFetch();
       setNews(data);
+      setIsLoading(false);
     }
     fetch();
   },[]);
@@ -44,6 +47,7 @@ const Explore = () => {
           <View className="my-[16px]">
             <Text className="text-[16px] font-bold">Popular Topic</Text>
           </View>
+          {isLoading&&<TopicCardSkeleton/>}
           {news&&<FlatList 
             scrollEnabled={false}
             nestedScrollEnabled={false}

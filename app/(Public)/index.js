@@ -10,17 +10,20 @@ import { router } from "expo-router";
 import { filters } from "../../constants/filterBtnLists";
 import FilterBtn from "../../components/ui/FilterBtn";
 import NewsCard from "../../components/Cards/NewsCard";
+import TopicCardSkeleton from "../../components/Cards/TopicCardSkeleton";
 
 const Homepage = () => {
   const [activeFilter,setActiveFilter] = useState('All');
   const [trendingNews, setTrendingNews] = useState();
   const [filteredNews,setFilteredNews] = useState();
+  const [isLoading,setIsLoading] = useState(true);
   useEffect(() => {
     async function fetch() {
       try {
         const news = await trendingFetch();
         setTrendingNews(news);
         setFilteredNews(news);
+        setIsLoading(false);
       } catch (error) {
         console.log("error fetching trending: ", error);
       }
@@ -53,6 +56,7 @@ const Homepage = () => {
               <Text>See all</Text>
             </Pressable>
           </View>
+          {isLoading && <TopicCardSkeleton/>}
           {trendingNews && <TopicCard news={trendingNews[0]} />}
           <View>
             <View className="flex-row justify-between mt-2">
@@ -81,6 +85,7 @@ const Homepage = () => {
             nestedScrollEnabled={true}
             keyExtractor={(item)=> item.id}
             renderItem={(item)=><NewsCard data={item.item}/>}
+            contentContainerStyle={{gap:16}}
             />
         </ScrollView>
       </CustomWrapper>
