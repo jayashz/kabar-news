@@ -19,11 +19,15 @@ export async function exporeFetch() {
   return response.data.articles;
 }
 
-export async function searchCategory( query ) {
+export async function searchCategory(query) {
+  const url = `https://newsapi.org/v2/top-headlines?category=${query.toLowerCase()}&apiKey=${news_api}`;
+  const response = await axios.get(url);
 
-    const url = `https://newsapi.org/v2/top-headlines?category=${query.toLowerCase()}&apiKey=${news_api}`;
-    const response = await axios.get(url);
-    console.log(query);
-    console.log('From seach Category:',response.data.articles);
   return response.data.articles;
+}
+
+export async function getSources() {
+  const url = `https://newsapi.org/v2/top-headlines/sources?apiKey=${news_api}`;
+  const response = await axios.get(url);
+  return response.data.sources;
 }

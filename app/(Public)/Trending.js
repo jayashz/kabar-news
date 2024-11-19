@@ -1,6 +1,6 @@
-import { View, Text, SafeAreaView, FlatList } from "react-native";
+import { View, SafeAreaView, FlatList } from "react-native";
 import React from "react";
-import { router, useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import TopicCard from "../../components/Cards/TopicCard";
 
 import CustomWrapper from "../../components/Cards/CustomWrapper";
