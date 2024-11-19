@@ -5,7 +5,7 @@ import SearchBar from "../../components/ui/SearchBar";
 import TopicCard from "../../components/Cards/TopicCard";
 import { Colors } from "../../constants/Colors";
 import CustomWrapper from "../../components/Cards/CustomWrapper";
-import { search, trendingFetch } from "../../utils/newApi";
+import { search, searchCategory, trendingFetch } from "../../utils/newApi";
 import { router } from "expo-router";
 import { filters } from "../../constants/filterBtnLists";
 import FilterBtn from "../../components/ui/FilterBtn";
@@ -40,7 +40,7 @@ const Homepage = () => {
   }
   async function filterHandler(query) {
     setActiveFilter(query);
-    const news = await search(query);
+    const news = await searchCategory(query);
     setFilteredNews(news);
   }
 

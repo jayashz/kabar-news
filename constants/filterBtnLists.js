@@ -1,9 +1,9 @@
 export const filters=[
     'All',
     'Sports',
-    'Political',
+    'Politics',
     'Business',
     'Health',
-    'Travel',
+    'Entertainment',
     'Science',
 ];

@@ -49,8 +49,6 @@ const PublicLayout = () => {
         name="Notification"
         options={{
           href: null, // This prevents the tab from being included in the URL
-          tabBarStyle: { display: "none" }, // This hides the tab completely
-          tabBarItemStyle: { display: "none" },
         }}
       />
       <Tabs.Screen
@@ -67,8 +65,7 @@ const PublicLayout = () => {
         name="Trending"
         options={{
           href: null,
-          tabBarStyle: { display: "none" }, 
-          tabBarItemStyle: { display: "none" },
+          
         }}
       />
       <Tabs.Screen
