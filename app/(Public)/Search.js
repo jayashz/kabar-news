@@ -1,19 +1,29 @@
 import { View, Text, SafeAreaView, FlatList } from "react-native";
-import React from "react";
+import React,{useState} from "react";
 import CustomWrapper from "../../components/Cards/CustomWrapper";
 import SearchBar from "../../components/ui/SearchBar";
 import { useLocalSearchParams } from "expo-router";
 import NewsCard from "../../components/Cards/NewsCard";
+import { search } from "../../utils/newApi";
 
 const Search = () => {
   const { searchData } = useLocalSearchParams();
-  const data = searchData ? JSON.parse(searchData) : null;
+  const [data, setData] = useState(searchData ? JSON.parse(searchData) : null);
 
+  async function searchNews(query) {
+    const fetchedNews = await search(query);
+    setData(fetchedNews);
+  }
   return (
     <SafeAreaView className="flex-1">
       <CustomWrapper>
-        <SearchBar />
-        <FlatList data={data} renderItem={(item)=><NewsCard data={item.item} />} keyExtractor={(item)=>item.id} contentContainerStyle={{gap:24}} />
+        <SearchBar onSearch={searchNews} />
+        <FlatList
+          data={data}
+          renderItem={(item) => <NewsCard data={item.item} />}
+          keyExtractor={(item) => item.id}
+          contentContainerStyle={{ gap: 24 }}
+        />
       </CustomWrapper>
     </SafeAreaView>
   );

@@ -7,9 +7,12 @@ import { router } from "expo-router";
 
 
 const TopicCard = ({news}) => {
+
   function clickHandler(){
+
     const serializedNews = JSON.stringify(news);
     router.push({pathname:'DetailScreen',params: {serializedNews}});
+    
   }
   
   return (

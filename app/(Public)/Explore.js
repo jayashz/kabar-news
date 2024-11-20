@@ -20,7 +20,7 @@ const Explore = () => {
   const [news, setNews] = useState();
   const [sources, setSources] = useState();
   const [isLoading, setIsLoading] = useState(true);
-
+  const [modalVisibility,setModalVisibility]= useState(true);
   useEffect(() => {
     async function fetch() {
       const data = await exporeFetch();

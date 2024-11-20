@@ -2,6 +2,7 @@ import axios from "axios";
 import { news_api } from "../keys";
 
 export async function search({ query }) {
+  console.log(query);
   const url = `https://newsapi.org/v2/everything?q=${query}&sortBy=publishedAt&apiKey=${news_api}`;
   const response = await axios.get(url);
   return response.data.articles;

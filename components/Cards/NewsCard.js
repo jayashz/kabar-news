@@ -11,6 +11,7 @@ const NewsCard = ({ data }) => {
     router.push({pathname:'DetailScreen',params: {serializedNews}});
     // router.push({pathname:'DetailScreen',params:{serializedData}});
   }
+  
   return (
     <Pressable onPress={clickHandler}>
       <View className="flex-row gap-1">
