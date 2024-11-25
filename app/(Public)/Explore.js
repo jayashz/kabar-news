@@ -15,12 +15,13 @@ import TopicCard from "../../components/Cards/TopicCard";
 import CustomWrapper from "../../components/Cards/CustomWrapper";
 import { exporeFetch, getSources } from "../../utils/newApi";
 import TopicCardSkeleton from "../../components/Cards/TopicCardSkeleton";
+import ExploreCardSkeleton from "../../components/Cards/ExploreCardSkeleton";
 
 const Explore = () => {
   const [news, setNews] = useState();
   const [sources, setSources] = useState();
   const [isLoading, setIsLoading] = useState(true);
-  const [modalVisibility,setModalVisibility]= useState(true);
+
   useEffect(() => {
     async function fetch() {
       const data = await exporeFetch();
@@ -44,7 +45,17 @@ const Explore = () => {
             </Pressable>
           </View>
           <View className="gap-[16px]">
-            {sources && sources.slice(0,3).map((source)=><ExploreCard source={source}/>)}
+            {isLoading && (
+              <>
+                <ExploreCardSkeleton />
+                <ExploreCardSkeleton />
+                <ExploreCardSkeleton />
+              </>
+            )}
+            {sources &&
+              sources
+                .slice(0, 3)
+                .map((source) => <ExploreCard source={source} />)}
           </View>
           <View className="my-[16px]">
             <Text className="text-[16px] font-bold">Popular Topic</Text>

@@ -7,3 +7,9 @@ export const filters=[
     'Entertainment',
     'Science',
 ];
+
+export const sortByList=[
+    'publishedAt',
+    'popularity',
+    'relevancy',
+]

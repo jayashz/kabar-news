@@ -10,8 +10,8 @@ const Search = () => {
   const { searchData } = useLocalSearchParams();
   const [data, setData] = useState(searchData ? JSON.parse(searchData) : null);
 
-  async function searchNews(query) {
-    const fetchedNews = await search(query);
+  async function searchNews(query,sortBy) {
+    const fetchedNews = await search(query,sortBy);
     setData(fetchedNews);
   }
   return (

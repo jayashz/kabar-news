@@ -9,7 +9,7 @@ import {
 
 import { BlurView } from "expo-blur";
 import CrossBtn from "./Buttons/CrossBtn";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import SimpleLineIcons from "@expo/vector-icons/SimpleLineIcons";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Colors } from "../../constants/Colors";
@@ -17,15 +17,19 @@ import { search } from "../../utils/newApi";
 import { router } from "expo-router";
 import { useRoute } from "@react-navigation/native";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import { sortByList } from "../../constants/filterBtnLists";
 
-const SearchBar = ({ onPress, onSearch }) => {
+const SearchBar = ({ onSearch }) => {
   const [query, setQuery] = useState("");
   const [modalVisibility, setModalVisibility] = useState(false);
+  const [sortBy, setSortBy] = useState("publishedAt");
+
   const route = useRoute().name;
 
   async function searchHandler() {
     if (query && route != "search") {
-      const data = await search({query:query});
+      const data = await search(query,sortBy);
+
       const serializedData = JSON.stringify(data);
       data &&
         router.push({
@@ -34,7 +38,7 @@ const SearchBar = ({ onPress, onSearch }) => {
         });
     }
     if (query.length > 0) {
-      onSearch({query:query});
+      onSearch(query,sortBy);
     }
   }
 
@@ -53,7 +57,7 @@ const SearchBar = ({ onPress, onSearch }) => {
           autoCapitalize="none"
         />
         {route == "index" ? (
-          <Pressable onPress={onPress}>
+          <Pressable onPress={() => setModalVisibility(!modalVisibility)}>
             <Ionicons name="filter" size={24} color="black" />
           </Pressable>
         ) : (
@@ -86,62 +90,28 @@ const SearchBar = ({ onPress, onSearch }) => {
           <View
             style={{
               width: "80%",
-              height: 200,
+              height: 150,
               borderRadius: 10,
               backgroundColor: "#fff",
             }}
           >
-            <TouchableOpacity
-              style={{
-                width: "100%",
-                height: 50,
-                borderBottomWidth: 0.5,
-                justifyContent: "center",
-                paddingLeft: 20,
-              }}
-            >
-              <Text style={{ fontSize: 18, color: "#000" }}> Sort By Name</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{
-                width: "100%",
-                height: 50,
-                borderBottomWidth: 0.5,
-                justifyContent: "center",
-                paddingLeft: 20,
-              }}
-            >
-              <Text style={{ fontSize: 18, color: "#000" }}>
-                Low to High Price
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{
-                width: "100%",
-                height: 50,
-                borderBottomWidth: 0.5,
-                justifyContent: "center",
-                paddingLeft: 20,
-              }}
-            >
-              <Text style={{ fontSize: 18, color: "#000" }}>
-                Hight to Low Price
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{
-                width: "100%",
-                height: 50,
-                borderBottomWidth: 0.5,
-                justifyContent: "center",
-                paddingLeft: 20,
-              }}
-            >
-              <Text style={{ fontSize: 18, color: "#000" }}>
-                {" "}
-                Sort By Rating
-              </Text>
-            </TouchableOpacity>
+            {sortByList.map((item) => (
+              <TouchableOpacity
+                style={{
+                  width: "100%",
+                  height: 50,
+                  borderBottomWidth: 0.5,
+                  justifyContent: "center",
+                  paddingLeft: 20,
+                }}
+                onPress={() => {
+                  setSortBy(item);
+                  setModalVisibility(false);
+                }}
+              >
+                <Text style={{ fontSize: 18, color: "#000" }}>{item}</Text>
+              </TouchableOpacity>
+            ))}
           </View>
         </BlurView>
       </Modal>
